@@ -7,49 +7,60 @@
   The tasks you need to do are below.
 
     TASKS TODO:
-      1. Calculate the score as the total of the number of correct answers
+      1. Calculate the score as the total of the number of correct answers DONE
 
-      2. Add an Event listener for the submit button, which will display the score and highlight 
+      2. Add an Event listener for the submit button done, which will display the score DONE and highlight done
          the correct answers when the button is clicked. Use the code from lines 67 to 86 to help you.
 
-      3. Add 2 more questions to the app (each question must have 4 options).
+      3. Add 2 more questions to the app (each question must have 4 options). Done
 
-      4. Reload the page when the reset button is clicked (hint: search window.location)
+      4. Reload the page when the reset button is clicked (hint: search window.location) Done
 
       5. Add a countdown timer - when the time is up, end the quiz, display the score and highlight the correct answers
 *************************** */
 
-window.addEventListener('DOMContentLoaded', () => {
-  const start = document.querySelector('#start');
-  start.addEventListener('click', function (e) {
-    document.querySelector('#quizBlock').style.display = 'block';
-    start.style.display = 'none';
+window.addEventListener("DOMContentLoaded", () => {
+  const start = document.querySelector("#start");
+  start.addEventListener("click", function (e) {
+    document.querySelector("#quizBlock").style.display = "block";
+    start.style.display = "none";
   });
+
   // quizArray QUESTIONS & ANSWERS
   // q = QUESTION, o = OPTIONS, a = CORRECT ANSWER
   // Basic ideas from https://code-boxx.com/simple-javascript-quiz/
   const quizArray = [
     {
-      q: 'Which is the third planet from the sun?',
-      o: ['Saturn', 'Earth', 'Pluto', 'Mars'],
+      q: "Which is the third planet from the sun?",
+      o: ["Saturn", "Earth", "Pluto", "Mars"],
       a: 1, // array index 1 - so Earth is the correct answer here
     },
     {
-      q: 'Which is the largest ocean on Earth?',
-      o: ['Atlantic Ocean', 'Indian Ocean', 'Arctic Ocean', 'Pacific Ocean'],
+      q: "Which is the hardest JWD Assessment?",
+      o: ["Multiple Choice Quiz", "Web Assessment", "Final Project", "Javascript Assessment"],
+      a: 0,
+    },
+    {
+      q: "Which is the largest fish?",
+      o: ["Anchovie", "Tuna", "Clown", "Marlin"],
       a: 3,
     },
     {
-      q: 'What is the capital of Australia',
-      o: ['Sydney', 'Canberra', 'Melbourne', 'Perth'],
+      q: "Which is the largest ocean on Earth?",
+      o: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+      a: 3,
+    },
+    {
+      q: "What is the capital of Australia",
+      o: ["Sydney", "Canberra", "Melbourne", "Perth"],
       a: 1,
     },
   ];
 
   // function to Display the quiz questions and answers from the object
   const displayQuiz = () => {
-    const quizWrap = document.querySelector('#quizWrap');
-    let quizDisplay = '';
+    const quizWrap = document.querySelector("#quizWrap");
+    let quizDisplay = "";
     quizArray.map((quizItem, index) => {
       quizDisplay += `<ul class="list-group">
                    Q - ${quizItem.q}
@@ -63,6 +74,23 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  //event listener on submit button
+  const submit = document.querySelector("#btnSubmit");
+const displayScore = document.querySelector('#score')
+
+  submit.addEventListener("click", function (e) {
+    calculateScore();
+    displayScore.innerHTML = `Your Score: ${totalscore}`
+    console.log(displayScore);
+  });
+
+  //event listener on reset button
+  const resetbutton = document.querySelector("#btnReset");
+  resetbutton.addEventListener('click', function (e) {
+    window.location.reload()})
+
+    let totalscore = 0
+
   // Calculate the score
   const calculateScore = () => {
     let score = 0;
@@ -71,15 +99,19 @@ window.addEventListener('DOMContentLoaded', () => {
         //highlight the li if it is the correct answer
         let li = `li_${index}_${i}`;
         let r = `radio_${index}_${i}`;
-        liElement = document.querySelector('#' + li);
-        radioElement = document.querySelector('#' + r);
+        liElement = document.querySelector("#" + li);
+        radioElement = document.querySelector("#" + r);
 
         if (quizItem.a == i) {
           //change background color of li element here
+          liElement.style.backgroundColor = "#B3E6B5";
         }
 
-        if (radioElement.checked) {
+        if (radioElement.checked && quizItem.a == i) {
           // code for task 1 goes here
+          // Calculate the total number of correct answers.
+          score++;
+          return totalscore = score;
         }
       }
     });
@@ -88,3 +120,6 @@ window.addEventListener('DOMContentLoaded', () => {
   // call the displayQuiz function
   displayQuiz();
 });
+
+//countdown timer
+
