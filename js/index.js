@@ -72,16 +72,31 @@ window.addEventListener("DOMContentLoaded", () => {
                     <div>&nbsp;</div>`;
       quizWrap.innerHTML = quizDisplay;
     });
+    // set 60 second timer
+  let timeleft = 60;
+const quizTimer = setInterval(function(){
+  if(timeleft <= 0){
+    // call results functions and clear timer
+    calculateScore();
+    showScore();
+    clearInterval(quizTimer);
+  }
+  document.getElementById("time").innerHTML = timeleft;
+  timeleft -= 1;
+}, 1000); 
   };
 
   //event listener on submit button
   const submit = document.querySelector("#btnSubmit");
-const displayScore = document.querySelector('#score')
+  const displayScore = document.querySelector('#score')
+  function showScore () {
+    displayScore.innerHTML = `Your Score: ${totalscore}`
+  }
 
+  //show score and answers by calling functions on click
   submit.addEventListener("click", function (e) {
     calculateScore();
-    displayScore.innerHTML = `Your Score: ${totalscore}`
-    console.log(displayScore);
+    showScore();
   });
 
   //event listener on reset button
@@ -89,6 +104,7 @@ const displayScore = document.querySelector('#score')
   resetbutton.addEventListener('click', function (e) {
     window.location.reload()})
 
+    //declare global variable for score
     let totalscore = 0
 
   // Calculate the score
@@ -109,7 +125,6 @@ const displayScore = document.querySelector('#score')
 
         if (radioElement.checked && quizItem.a == i) {
           // code for task 1 goes here
-          // Calculate the total number of correct answers.
           score++;
           return totalscore = score;
         }
